@@ -1,5 +1,7 @@
 from django.http import JsonResponse
+from .models import Reporte  # Importa el modelo Reporte
 import requests
+from datetime import datetime
 
 FACTURAS_SERVICE_URL = "http://127.0.0.1:8000/Ofipensiones/api/facturas_por_fecha/"
 
@@ -35,8 +37,17 @@ def generar_reporte(request):
             'fecha_inicio': fecha_inicio,
             'fecha_fin': fecha_fin,
             'total_facturas': len(facturas),
-            'facturas': facturas
+            'facturas': facturas,
+            'fecha_generacion': datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         }
+
+        # Guardar el reporte en la base de datos
+        Reporte.objects.create(
+            fecha_inicio=fecha_inicio,
+            fecha_fin=fecha_fin,
+            total_facturas=len(facturas),
+            detalle_facturas=facturas
+        )
 
         # Retornar el reporte como JSON
         return JsonResponse(reporte, status=200)

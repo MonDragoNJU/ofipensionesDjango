@@ -76,15 +76,35 @@ WSGI_APPLICATION = 'ofipensiones.wsgi.application'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
 DATABASES = {
+    # Base de datos por defecto (puede ser cualquiera de tus bases)
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'ofipensiones-facturas',  # Reemplaza con el nombre de tu base
-        'USER': 'postgres',  # Reemplaza con tu usuario
-        'PASSWORD': '12345678',  # Reemplaza con tu contraseña
-        'HOST': '34.172.11.169',  # Dirección pública de tu instancia
-        'PORT': '5432', 
-    }
+        'NAME': 'ofipensiones-reportes-db',  # Puedes elegir 'reportes' como default
+        'USER': 'postgres',
+        'PASSWORD': '12345678',
+        'HOST': '34.45.78.93',
+        'PORT': '5432',
+    },
+    # Base de datos para 'facturas'
+    'facturas': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'ofipensiones-facturas',
+        'USER': 'postgres',
+        'PASSWORD': '12345678',
+        'HOST': '34.172.11.169',
+        'PORT': '5432',
+    },
+    # Base de datos para 'reportes'
+    'reportes': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'ofipensiones-reportes-db',
+        'USER': 'postgres',
+        'PASSWORD': '12345678',
+        'HOST': '34.45.78.93',
+        'PORT': '5432',
+    },
 }
+
 
 
 # Password validation
@@ -127,3 +147,6 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+DATABASE_ROUTERS = ['db_router.DatabaseRouter']
+
